@@ -141,7 +141,7 @@ library(tidyr)
 # Filter so only common pairs about Dorothy or the scarecrow remain
 tidyWizardNgram <- tidyWizardNgram %>%
   filter((firstWord  %in% c("dorothy", "scarecrow")) | # OR
-           secondWord %in% c("dorothy", "scarecrow"), # Hi Leo, I do not understand this %in%. Do you know it? If yes, could you please write a comment explaining it.
+           secondWord %in% c("dorothy", "scarecrow"), # %in% ???
          n > 1)
 
 ?filter
@@ -156,7 +156,7 @@ igraph_wizard <- graph_from_data_frame(tidyWizardNgram)
 
 # Plot the ggraph  
 ggraph(igraph_wizard, layout = 'stress') + # More layouts: http://mr.schochastics.net/netVizR.html
-  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE) + # do not understand aes edge alpha Leo ?
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE) + # aes(edge_alpha = n) ???
   geom_node_point(color = "coral", size = 3) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
@@ -222,7 +222,7 @@ afinnWizard <- wizardOfOz %>%
   inner_join(get_sentiments(lexicon = "afinn"), by = "word")
 
 afinnWizard <- afinnWizard %>% 
-  mutate(booksection = lineNumber %/% 100) %>% # floor division, Leo? 
+  mutate(booksection = lineNumber %/% 100) %>% # do not understand this bit ???
   group_by(booksection) %>% 
   summarise(score = mean(value))
 
@@ -290,14 +290,14 @@ wizardOfOz <- gutenberg_download(55, mirror = "http://mirrors.xmission.com/guten
 
 # make into tidy form and add line numbers
 tidyWizard <- wizardOfOz %>%
-  mutate(lineNumber = row_number()) %>% # do not understand this bit Leo
+  mutate(lineNumber = row_number()) %>% 
   unnest_tokens(word, text)
 
 View(tidyWizard)
 
 # label into sections by line number
 tidySplitWizard_1 <- tidyWizard %>%
-  mutate(booksection = lineNumber %/% 1000) # split every 1000 lines, do not understand this bit Leo
+  mutate(booksection = lineNumber %/% 1000)  
 
 View(tidySplitWizard_1)
 
@@ -316,7 +316,7 @@ View(tidySplitWizard_2)
 tidySplitWizard <- tidySplitWizard_2 %>%
   bind_tf_idf(term = word, document = booksection, n = count) 
 
-?bind_tf_idf # Bind the term frequency and inverse document frequency of a tidy text dataset to the dataset # Leo what is inverse document frequency
+?bind_tf_idf # Bind the term frequency and inverse document frequency of a tidy text dataset to the dataset 
 # term = Column containing terms as string or symbol
 # document = Column containing document IDs as string or symbol
 # n = Column containing document-term counts as string or symbol
