@@ -141,7 +141,7 @@ library(tidyr)
 # Filter so only common pairs about Dorothy or the scarecrow remain
 tidyWizardNgram <- tidyWizardNgram %>%
   filter((firstWord  %in% c("dorothy", "scarecrow")) | # OR
-           secondWord %in% c("dorothy", "scarecrow"), # %in% ???
+           secondWord %in% c("dorothy", "scarecrow"), # %in% ??? Explanation...
          n > 1)
 
 ?filter
@@ -156,7 +156,7 @@ igraph_wizard <- graph_from_data_frame(tidyWizardNgram)
 
 # Plot the ggraph  
 ggraph(igraph_wizard, layout = 'stress') + # More layouts: http://mr.schochastics.net/netVizR.html
-  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE) + # aes(edge_alpha = n) ???
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE) + # aes(edge_alpha = n) ??? Explanation...
   geom_node_point(color = "coral", size = 3) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
@@ -222,7 +222,7 @@ afinnWizard <- wizardOfOz %>%
   inner_join(get_sentiments(lexicon = "afinn"), by = "word")
 
 afinnWizard <- afinnWizard %>% 
-  mutate(booksection = lineNumber %/% 100) %>% # do not understand this bit ???
+  mutate(booksection = lineNumber %/% 100) %>% # do not understand this bit ??? Explanation...
   group_by(booksection) %>% 
   summarise(score = mean(value))
 
