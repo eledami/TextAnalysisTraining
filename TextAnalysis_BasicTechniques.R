@@ -143,6 +143,7 @@ tidyWizardNgram <- tidyWizardNgram %>%
   filter((firstWord  %in% c("dorothy", "scarecrow")) | # OR
            secondWord %in% c("dorothy", "scarecrow"), # %in% ??? Explanation...
          n > 1)
+## %in% is shorthand way of saying, in this case, firstword = "dorothy" or firstword = "scarecrow". So, you can use a list of words in a filter so all those words are matched to 
 
 ?filter
 
@@ -160,6 +161,9 @@ ggraph(igraph_wizard, layout = 'stress') + # More layouts: http://mr.schochastic
   geom_node_point(color = "coral", size = 3) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
+
+## alpha sets the transparency of the colour for the asthetic its set against, so in scatter plots can be used to see overlapping points. edge_alpha is setting the transparency
+## of the lines between nodes in the graph, in this case determined by n or the number of connections there are so more common combinations of words will have more solid lines
 
 ?ggraph() # create a ggraph plot 
 ?aes # construct aesthetic mappings, describe how variables in the data are mapped to visual proprieties (from ggplot2)
@@ -225,6 +229,10 @@ afinnWizard <- afinnWizard %>%
   mutate(booksection = lineNumber %/% 100) %>% # do not understand this bit ??? Explanation...
   group_by(booksection) %>% 
   summarise(score = mean(value))
+
+## %/% returns the integer of the division, so in this case line numbers 100-199 would return as 1. I'm not sure if this has just been used as an way of splitting the book
+## up into equal sections or if it makes sense to the structure of the book. I think for us, we would use different ways of splitting up the data such as a response ID or 
+## report section ID
 
 afinnWizard %>% ggplot(aes(booksection, score)) +
   geom_point() +
